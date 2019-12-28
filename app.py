@@ -1,14 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-from flask import Flask, request
-from config import ACCESS_KEY, SECRET_KEY
-import boto3
-from werkzeug.utils import secure_filename
 import logging
+
+import boto3
+from flask import Flask, request
+from werkzeug.utils import secure_filename
+
+from config import ACCESS_KEY, SECRET_KEY
 
 logging.basicConfig(level=logging.INFO)
 
@@ -23,7 +19,7 @@ def hello():
     filename = secure_filename(file.filename)
     app.logger.info("incoming file: " + filename)
     s3_client.upload_fileobj(file, 'rekognai-test', filename)
-    return "Upload Successful"
+    return filename
 
 
 app.run()
